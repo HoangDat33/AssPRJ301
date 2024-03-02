@@ -4,8 +4,16 @@
         <servlet-name>LoginController</servlet-name>
         <servlet-class>controller.authentication.LoginController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TimeTableController</servlet-name>
+        <servlet-class>controller.lecturer.TimeTableController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TimeTableController</servlet-name>
+        <url-pattern>/timetable</url-pattern>
     </servlet-mapping>
 </web-app>
