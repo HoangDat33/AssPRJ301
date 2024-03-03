@@ -28,13 +28,19 @@ public class TimeTableController extends BaseRequireAuthentication {
    
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
-        
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+        req.getRequestDispatcher("/view/lecturer/timetable.jsp").forward(req, resp);
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
-        int lid = Integer.parseInt(req.getParameter("id"));
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+        String idParam = req.getParameter("id");
+            int lid = 0; 
+            if (idParam != null && !idParam.isEmpty()) {
+                lid = Integer.parseInt(idParam);
+            } else {
+                resp.getWriter().println("Can't get lid!");
+            }
         String raw_from = req.getParameter("from");
         String raw_to = req.getParameter("to");
         java.sql.Date from = null;
@@ -75,8 +81,7 @@ public class TimeTableController extends BaseRequireAuthentication {
         req.setAttribute("from", from);
         req.setAttribute("to", to);
         req.setAttribute("lessions", lessions);
-        
-        req.getRequestDispatcher("../view/lecturer/timetable.jsp").forward(req, resp);
+        req.getRequestDispatcher("/view/lecturer/lecturetable.jsp").forward(req, resp);
         
     }
     @Override

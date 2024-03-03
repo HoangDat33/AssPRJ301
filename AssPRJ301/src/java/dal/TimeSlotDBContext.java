@@ -22,7 +22,7 @@ public class TimeSlotDBContext extends AssDBContext<TimeSlot>{
         try {
             String sql = "SELECT tid,tname FROM TimeSlot";
             PreparedStatement stm = connection.prepareStatement(sql);
-            ResultSet rs = stm.executeQuery(sql);
+            ResultSet rs = stm.executeQuery();
             while (rs.next()) {                
                 TimeSlot t = new TimeSlot();
                 t.setTid(rs.getInt("tid"));
