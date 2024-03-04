@@ -6,7 +6,7 @@
     </servlet>
     <servlet>
         <servlet-name>TimeTableController</servlet-name>
-        <servlet-class>controller.lecturer.TimeTableController</servlet-class>
+        <servlet-class>controller.timetable.TimeTableController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -14,6 +14,6 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TimeTableController</servlet-name>
-        <url-pattern>/timetable</url-pattern>
+        <url-pattern>/lecturer/timetable</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -2,11 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.lecturer;
+package controller.timetable;
 
 import controller.authentication.BaseRequireAuthentication;
 import dal.LecturerDBContext;
 import dal.LessionDBContext;
+import dal.StudentDBContext;
 import dal.TimeSlotDBContext;
 import entity.Account;
 import java.io.IOException;
@@ -42,6 +43,7 @@ public class TimeTableController extends BaseRequireAuthentication {
         }
         String raw_from = req.getParameter("from");
         String raw_to = req.getParameter("to");
+        String position = req.getParameter("position");
         java.sql.Date from = null;
         java.sql.Date to = null;
 
@@ -68,18 +70,28 @@ public class TimeTableController extends BaseRequireAuthentication {
 
         LessionDBContext lessDB = new LessionDBContext();
         ArrayList<Lession> lessions = lessDB.getLessionBy(lid, from, to);
-
+        ArrayList<Lession> stdLessions = lessDB.getStdLessionBy(lid,from,to);
+        
         LecturerDBContext ldb = new LecturerDBContext();
         Lecturer lecturer = ldb.getLecturerById(lid);
         
+        StudentDBContext stDB = new StudentDBContext();
+        Student student = stDB.getStdByID(lid);
+        
+        req.setAttribute("student", student);
+        req.setAttribute("stdLessions", stdLessions);
         req.setAttribute("lecturer", lecturer);
         req.setAttribute("slots", slots);
         req.setAttribute("dates", dates);
         req.setAttribute("from", from);
         req.setAttribute("to", to);
         req.setAttribute("lessions", lessions);
-        req.getRequestDispatcher("/view/lecturer/lecturetable.jsp").forward(req, resp);
-
+        
+        if(position.equalsIgnoreCase("Student")){
+            req.getRequestDispatcher("/view/student/studenttable.jsp").forward(req, resp);
+        }else if (position.equalsIgnoreCase("Teacher")) {
+            req.getRequestDispatcher("/view/lecturer/lecturetable.jsp").forward(req, resp);
+        }
     }
 
     @Override
