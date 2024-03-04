@@ -13,7 +13,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <div>Lecturer: </div>
+        
+        <div>Lecturer: ${requestScope.lecturer.lname}</div>
         <table border="1px">
 
             <tr>
