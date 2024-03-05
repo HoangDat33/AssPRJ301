@@ -8,6 +8,10 @@
         <servlet-name>TimeTableController</servlet-name>
         <servlet-class>controller.timetable.TimeTableController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AttendenceController</servlet-name>
+        <servlet-class>controller.attendence.AttendenceController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -15,5 +19,9 @@
     <servlet-mapping>
         <servlet-name>TimeTableController</servlet-name>
         <url-pattern>/lecturer/timetable</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AttendenceController</servlet-name>
+        <url-pattern>/lecturer/att</url-pattern>
     </servlet-mapping>
 </web-app>
