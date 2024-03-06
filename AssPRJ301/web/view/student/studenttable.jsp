@@ -34,14 +34,19 @@
                             <c:forEach items="${requestScope.stdLessions}" var="les">
                                 <c:if test="${les.date eq d and les.timeSlot.tid eq slot.tid}">
                                     ${les.group.gname} - ${les.group.subject.subname}<br/>
-                                    <a>
-                                        <c:if test="${les.isAttended}">
-                                            <span style="color: green;">Attended</span>
+                                    <c:forEach items="${requestScope.atd}" var="at">
+                                        <c:if test="${at.lession.leid eq les.leid}">
+                                            <c:if test="${at.present}">
+                                                <span style="color: green;">Attended</span>
+                                            </c:if>
+                                            <c:if test="${!at.present}">
+                                                <span style="color: red;">Absent</span>
+                                            </c:if>
                                         </c:if>
-                                        <c:if test="${!les.isAttended}">
-                                            <span style="color: red;">Absent</span>
-                                        </c:if>
-                                    </a>
+<%--                                            <c:if test="${!(at.lession.leid eq les.leid)}">
+                                                <span style="color: gray;">Not yet</span>
+</c:if>--%>
+                                    </c:forEach>
                                     ${les.lecturer.lcode}
                                 </c:if>
                             </c:forEach>

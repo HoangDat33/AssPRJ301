@@ -5,6 +5,7 @@
 package controller.timetable;
 
 import controller.authentication.BaseRequireAuthentication;
+import dal.AttendenceDBContext;
 import dal.LecturerDBContext;
 import dal.LessionDBContext;
 import dal.StudentDBContext;
@@ -39,7 +40,7 @@ public class TimeTableController extends BaseRequireAuthentication {
         if (idParam != null && !idParam.isEmpty()) {
             lid = Integer.parseInt(idParam);
         } else {
-            resp.getWriter().println("Can't get lid!");
+            resp.getWriter().println("Can't get id!");
         }
         String raw_from = req.getParameter("from");
         String raw_to = req.getParameter("to");
@@ -78,6 +79,10 @@ public class TimeTableController extends BaseRequireAuthentication {
         StudentDBContext stDB = new StudentDBContext();
         Student student = stDB.getStdByID(lid);
         
+        AttendenceDBContext attendenceDBContext = new AttendenceDBContext();
+        ArrayList<Attendence> atd = attendenceDBContext.getAttBy(lid);
+        
+        req.setAttribute("atd", atd);
         req.setAttribute("student", student);
         req.setAttribute("stdLessions", stdLessions);
         req.setAttribute("lecturer", lecturer);
