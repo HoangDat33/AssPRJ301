@@ -34,18 +34,27 @@
                             <c:forEach items="${requestScope.stdLessions}" var="les">
                                 <c:if test="${les.date eq d and les.timeSlot.tid eq slot.tid}">
                                     ${les.group.gname} - ${les.group.subject.subname}<br/>
-                                    <c:forEach items="${requestScope.atd}" var="at">
-                                        <c:if test="${at.lession.leid eq les.leid}">
-                                            <c:if test="${at.present}">
-                                                <span style="color: green;">Attended</span>
-                                            </c:if>
-                                            <c:if test="${!at.present}">
-                                                <span style="color: red;">Absent</span>
-                                            </c:if>
-                                        </c:if>
-                                        <c:if test="${!(at.lession.leid eq les.leid)}">
-                                            <span style="color: gray;">Not yet</span>
-                                        </c:if>
+                                    <c:forEach items="${requestScope.atd}" var="object">
+                                        <c:set var="presentValue" value="${object.present}" />
+                                        <c:set var="lesionId" value="${object.lession.leid}" />
+
+                                        <c:forEach items="${requestScope.stdLessions}" var="les2">
+                                            <c:choose>
+                                                <c:when test="${les2.leid eq lesionId}">
+                                                    <c:choose>
+                                                        <c:when test="${presentValue eq true}">
+                                                            Attended
+                                                        </c:when>
+                                                        <c:when test="${presentValue eq false}">
+                                                            Absent
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            Not yet
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </c:when>
+                                            </c:choose>
+                                        </c:forEach>
                                     </c:forEach>
                                     ${les.lecturer.lcode}
                                 </c:if>
