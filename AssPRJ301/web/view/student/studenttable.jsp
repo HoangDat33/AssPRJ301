@@ -43,9 +43,9 @@
                                                 <span style="color: red;">Absent</span>
                                             </c:if>
                                         </c:if>
-<%--                                            <c:if test="${!(at.lession.leid eq les.leid)}">
-                                                <span style="color: gray;">Not yet</span>
-</c:if>--%>
+                                        <c:if test="${!(at.lession.leid eq les.leid)}">
+                                            <span style="color: gray;">Not yet</span>
+                                        </c:if>
                                     </c:forEach>
                                     ${les.lecturer.lcode}
                                 </c:if>

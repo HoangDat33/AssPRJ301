@@ -29,7 +29,8 @@ public class AttendenceController extends BaseRequireAuthentication{
         ArrayList<Student> students = db.getStudentsByLession(leid);
         ArrayList<Attendence> atts = new ArrayList<>();
         Lession lession = new Lession();
-        lession.setLeid(leid);
+        LessionDBContext ldb = new LessionDBContext();
+        lession = ldb.getLesBy(leid);
         for (Student student : students) {
             Attendence a = new Attendence();
             a.setLession(lession);
@@ -47,7 +48,7 @@ public class AttendenceController extends BaseRequireAuthentication{
         int leid = Integer.parseInt(req.getParameter("id"));
         LessionDBContext db = new LessionDBContext();
         ArrayList<Attendence> atts = db.getAttendencesByLession(leid);
-        
+
 //        for (Attendence att : atts) {
 //            resp.getWriter().println(att.getStudent().getSname());
 //        }
