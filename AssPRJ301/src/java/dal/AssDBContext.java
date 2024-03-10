@@ -18,7 +18,7 @@ public abstract class AssDBContext<T> {
         try {
             String url = "jdbc:sqlserver://DAT\\SQLEXPRESS:1433;databaseName=MyProject;encrypt=true;trustServerCertificate=true";
             String user = "sa";
-            String pass = "123";
+            String pass = "12345";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(url, user, pass);
         } catch (ClassNotFoundException ex) {
