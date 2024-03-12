@@ -14,6 +14,7 @@
     </head>
     <body>
         <div>Student: ${requestScope.student.sname}</div>
+        <div><a href="grade?id=${requestScope.student.sid}">Mark report</a></div>
         <table border="1px">
 
             <tr>

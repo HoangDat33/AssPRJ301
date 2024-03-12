@@ -21,17 +21,19 @@ import java.util.logging.Logger;
  */
 public class GradeDBContext extends AssDBContext<Grade>{
     
-    ArrayList<Grade> grades = new ArrayList<>();
+    
     public ArrayList<Grade> getGradeBySid(int sid, int subid){
+        ArrayList<Grade> grades = new ArrayList<>();
         try {
             
             String sql = "SELECT graid,e.exid,e.datetime,ass.assid, ass.assname, ass.weight,sub.subid, sub.subname,\n" +
-                    "					sub.credit,score FROM Grade gra \n" +
-                    "					INNER JOIN Exam e ON gra.exid = e.exid\n" +
-                    "					INNER JOIN Student s ON gra.sid = s.sid	\n" +
-                    "					INNER JOIN Assessment ass ON ass.assid = e.assid\n" +
-                    "					INNER JOIN Subject sub ON sub.subid = ass.suid\n" +
-                    "                                       WHERE s.sid=? and sub.subid = ?;";
+"                    					sub.credit,s.sid, s.sname, s.scode,s.sgender,s.sdob,\n" +
+"							s.smail, s.sphone, s.saddress,score FROM Grade gra\n" +
+"                   					INNER JOIN Exam e ON gra.exid = e.exid\n" +
+"                    					INNER JOIN Student s ON gra.sid = s.sid	\n" +
+"                    					INNER JOIN Assessment ass ON ass.assid = e.assid\n" +
+"                   						INNER JOIN Subject sub ON sub.subid = ass.suid\n" +
+"                                        WHERE s.sid=? and sub.subid = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, sid);
             stm.setInt(2, subid);
@@ -44,7 +46,7 @@ public class GradeDBContext extends AssDBContext<Grade>{
                 Subject sub = new Subject();
                 sub.setSubid(rs.getInt("subid"));
                 sub.setSubname(rs.getString("subname"));
-                sub.setCredit(rs.getInt("creadit"));
+                sub.setCredit(rs.getInt("credit"));
                 
                 Assessment assessment = new Assessment();
                 assessment.setAssid(rs.getInt("assid"));
@@ -57,12 +59,18 @@ public class GradeDBContext extends AssDBContext<Grade>{
                 exam.setDate(rs.getDate("datetime"));
                 exam.setAssessment(assessment);
                 
-                Student std = new Student();
-                StudentDBContext stdb = new StudentDBContext();
-                std = stdb.getStdByID(sid);
+                Student s = new Student();
+                s.setSid(rs.getInt("sid"));
+                s.setSname(rs.getString("sname"));
+                s.setScode(rs.getString("scode"));
+                s.setSgender(rs.getBoolean("sgender"));
+                s.setSmail(rs.getString("smail"));
+                s.setSphone(rs.getString("sphone"));
+                s.setSaddress(rs.getString("saddress"));
+                s.setSdob(rs.getDate("sdob"));
                 
                 grade.setExam(exam);
-                grade.setStudent(std);
+                grade.setStudent(s);
                 
                 grades.add(grade);
             }

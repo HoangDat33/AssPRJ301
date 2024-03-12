@@ -33,7 +33,22 @@ public class SubjectDBContaxt extends AssDBContext<Subject>{
     }
     @Override
     public ArrayList<Subject> list() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<Subject> subjects = new ArrayList<>();
+        try {
+            String sql = "select subid, subname, credit from Subject";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {   
+                Subject s = new Subject();
+                s.setSubid(rs.getInt("subid"));
+                s.setSubname(rs.getString("subname"));
+                s.setCredit(rs.getInt("credit"));
+                subjects.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SubjectDBContaxt.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return subjects;
     }
 
     @Override
