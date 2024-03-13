@@ -17,6 +17,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 /**
@@ -38,9 +39,12 @@ public class GradeController extends BaseRequireAuthentication {
         
         GradeDBContext graDB = new GradeDBContext();
         ArrayList<Grade> grades = graDB.getGradeBySid(stdid, subid);
-     
-        req.setAttribute("grades", grades);
-        req.getRequestDispatcher("../view/student/showGrade.jsp").forward(req, resp);    
+        float overall = cal(grades);
+        HttpSession session = req.getSession();
+        
+        session.setAttribute("overall", overall);
+        session.setAttribute("grades", grades);
+        req.getRequestDispatcher("../view/student/grade.jsp").forward(req, resp);    
     }
 
     @Override
@@ -49,12 +53,21 @@ public class GradeController extends BaseRequireAuthentication {
         
         SubjectDBContaxt subdb = new SubjectDBContaxt();
         ArrayList<Subject> subjects = subdb.list();
+        HttpSession session = req.getSession();
 //        for (Subject subject : subjects) {
 //            resp.getWriter().print(subject.getSubname());
 //        }
-        req.setAttribute("stdid", stdid);
-        req.setAttribute("subjects", subjects);
+        session.setAttribute("stdid", stdid);
+        session.setAttribute("subjects", subjects);
         req.getRequestDispatcher("../view/student/grade.jsp").forward(req, resp);
+    }
+
+    private float cal(ArrayList<Grade> grades) {
+        float overal = 0;
+        for (Grade grade : grades) {
+            overal += grade.getScore() * grade.getExam().getAssessment().getWeight();
+        }
+        return overal;
     }
 
 }

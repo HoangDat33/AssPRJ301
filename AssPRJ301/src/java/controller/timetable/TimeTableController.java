@@ -50,18 +50,23 @@ public class TimeTableController extends BaseRequireAuthentication {
 
         Date today = new Date();
         if (raw_from == null) {
+//            resp.getWriter().println("nullllllll");
             from = DateTimeHelper.convertUtilDateToSqlDate(DateTimeHelper.getWeekStart(today));
         } else {
             from = java.sql.Date.valueOf(raw_from);
         }
 
         if (raw_to == null) {
+//            resp.getWriter().println("nullllllll");
             to = DateTimeHelper.convertUtilDateToSqlDate(
                     DateTimeHelper.addDaysToDate(DateTimeHelper.getWeekStart(today), 6));
         } else {
             to = java.sql.Date.valueOf(raw_to);
         }
 
+//        resp.getWriter().println(from);
+//        resp.getWriter().println(to);
+        
         ArrayList<java.sql.Date> dates = DateTimeHelper.getListBetween(
                 DateTimeHelper.convertSqlDateToUtilDate(from),
                 DateTimeHelper.convertSqlDateToUtilDate(to));

@@ -15,8 +15,8 @@
     <body>
         <form action="timetable" method="POST">
             ID: <input type="text" value="${param.id}" name="id"/><br/>
-            From: <input type="date" name="from" value="${requestScope.from}"/> To:
-            <input type="date" name="to" value="${requestScope.to}"/><br/>
+            From: <input type="date" name="from""/> To:
+            <input type="date" name="to""/><br/>
             <input type="radio" name="position" checked="checked" value="Student"/>Student
             <input type="radio" name="position" value="Teacher"/>Teacher<br/>
             <input type="submit" value="View"/>
