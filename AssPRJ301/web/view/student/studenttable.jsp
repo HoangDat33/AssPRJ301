@@ -44,20 +44,22 @@
                                                 <c:when test="${les2.leid eq lesionId}">
                                                     <c:choose>
                                                         <c:when test="${presentValue eq true}">
-                                                            Attended
+                                                            <span style="color: green;">Attended</span>
                                                         </c:when>
                                                         <c:when test="${presentValue eq false}">
-                                                            Absent
+                                                            <span style="color: red;">Absent</span>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            Not yet
+                                                            <span style="color: gray;">Not yet</span>
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </c:when>
                                             </c:choose>
                                         </c:forEach>
                                     </c:forEach>
-                                    ${les.lecturer.lcode}
+                                    <a href="info?id=${les.leid}">
+                                        ${les.lecturer.lcode}
+                                    </a>
                                 </c:if>
                             </c:forEach>
                         </td>
