@@ -16,39 +16,41 @@ import java.util.logging.Logger;
  */
 public class AttendenceDBContext extends AssDBContext<Attendence>{
 
-    public  ArrayList<Attendence> getAttBy(int stdid){
-        ArrayList<Attendence> atts = new ArrayList<>();
-        try {
-            Attendence att = new Attendence();
-            String sql = "SELECT a.aid,a.leid,a.sid,a.ispresent,a.decription,a.capturetime FROM Attendence a WHERE sid = ?;";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, stdid);
-            ResultSet rs = stm.executeQuery();
+    public ArrayList<Attendence> getAttBy(int stdid){
+    ArrayList<Attendence> atts = new ArrayList<>();
+    try {
+        String sql = "SELECT a.aid, a.leid, a.sid, a.ispresent, a.decription, a.capturetime FROM Attendence a WHERE sid = ?;";
+        PreparedStatement stm = connection.prepareStatement(sql);
+        stm.setInt(1, stdid);
+        ResultSet rs = stm.executeQuery();
+        
+        while (rs.next()) {
+            Attendence att = new Attendence(); // Tạo một đối tượng Attendence mới trong mỗi vòng lặp
             
-            // Di chuyển con trỏ tới hàng kết quả đầu tiên
-            if (rs.next()) {
-                att.setId(rs.getInt("aid"));
-                
-                Lession les = new Lession();
-                LessionDBContext ldbc = new LessionDBContext();
-                les = ldbc.getLesBy(rs.getInt("leid"));
-                att.setLession(les);
-                
-                Student s = new Student();
-                StudentDBContext sdbc = new StudentDBContext();
-                s = sdbc.getStdByID(stdid);
-                att.setStudent(s);
-                
-                att.setPresent(rs.getBoolean("ispresent"));
-                att.setDescription(rs.getString("decription"));
-                att.setCaptureTime(rs.getDate("capturetime"));
-                atts.add(att);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(LecturerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            att.setId(rs.getInt("aid"));
+            
+            Lession les = new Lession();
+            LessionDBContext ldbc = new LessionDBContext();
+            les = ldbc.getLesBy(rs.getInt("leid"));
+            att.setLession(les);
+            
+            Student s = new Student();
+            StudentDBContext sdbc = new StudentDBContext();
+            s = sdbc.getStdByID(stdid);
+            att.setStudent(s);
+            
+            att.setPresent(rs.getBoolean("ispresent"));
+            att.setDescription(rs.getString("decription"));
+            att.setCaptureTime(rs.getDate("capturetime"));
+            
+            atts.add(att); // Thêm đối tượng Attendence mới vào danh sách
         }
-        return atts;
+    } catch (SQLException ex) {
+        Logger.getLogger(LecturerDBContext.class.getName()).log(Level.SEVERE, null, ex);
     }
+    return atts;
+}
+
     
     @Override
     public ArrayList<Attendence> list() {

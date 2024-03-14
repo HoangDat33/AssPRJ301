@@ -91,6 +91,10 @@ public class TimeTableController extends BaseRequireAuthentication {
         AttendenceDBContext attendenceDBContext = new AttendenceDBContext();
         ArrayList<Attendence> atd = attendenceDBContext.getAttBy(lid);
         
+//        for (Attendence attendence : atd) {
+//            resp.getWriter().println(attendence.isPresent());
+//        }
+        
         req.setAttribute("atd", atd);
         req.setAttribute("student", student);
         req.setAttribute("stdLessions", stdLessions);
