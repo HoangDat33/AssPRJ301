@@ -20,6 +20,10 @@
         <servlet-name>InfoLecturerController</servlet-name>
         <servlet-class>controller.lecinfo.InfoLecturerController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>InfoStudentController</servlet-name>
+        <servlet-class>controller.stuinfo.InfoStudentController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -39,5 +43,9 @@
     <servlet-mapping>
         <servlet-name>InfoLecturerController</servlet-name>
         <url-pattern>/lecturer/info</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InfoStudentController</servlet-name>
+        <url-pattern>/lecturer/sif</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -67,8 +67,8 @@
                         </tr>
                         <c:forEach items="${requestScope.atts}" var="a">
                             <tr>
-                                <td>${a.student.sid}</td>
-                                <td>${a.student.sname}</td>
+                                <td>${a.student.sid} </td>
+                                <td>${a.student.sname}<br><a href="sif?id=${a.student.sid}">See Info</a></td>
                                 <td>
                                     <input type="radio" 
                                            ${!a.present?"checked=\"checked\"":""}

@@ -22,15 +22,15 @@
     <body>
         <h2>User detail</h2>
         <div>
-            Lecturer's name: ${requestScope.l.lname}<br>
-            Gender: <c:if test="${l.lgender}">
+            <strong>Lecturer's name:</strong> ${requestScope.l.lname}<br>
+            <strong>Gender:</strong> <c:if test="${l.lgender}">
                 Nam
             </c:if> 
                 <c:if test="${!l.lgender}">
                 Nữ
             </c:if> <br>
-            Email:${requestScope.l.lmail}<br>
-            Contact:${requestScope.l.lphone} 
+            <strong>Email:</strong>${requestScope.l.lmail}<br>
+            <strong>Contact:</strong>${requestScope.l.lphone} 
         </div>
 
     </body>
