@@ -70,11 +70,9 @@ public class LoginController extends HttpServlet {
             c_pass.setMaxAge(3600*24*7);
             response.addCookie(c_pass);
             response.addCookie(c_user);
-            
-           // response.sendRedirect("http://www.dantri.com");
-            response.getWriter().println("Hello " + account.getDisplayname() + ", login sucessful!");
+            response.getWriter().println("Login Successfully");
         } else {
-            response.getWriter().println("login failed");
+            response.getWriter().println("Login Failed");
         }
     }
 

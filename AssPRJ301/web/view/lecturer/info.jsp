@@ -16,6 +16,18 @@
                 justify-content: center;
                 align-items: center;
                 flex-direction: column;
+                font-family: Arial, sans-serif; /*Thêm kiểu font chữ mặc định*/
+                background-color: #f0f0f0; /*Thêm màu nền*/
+                padding: 20px; /*Thêm khoảng cách đệm xung quanh*/
+                margin: 0; /*Xóa margin mặc định*/
+            }
+
+            div {
+                background-color: #ffffff; /*Thêm màu nền cho khối chứa thông tin*/
+                padding: 20px; /*Thêm khoảng cách đệm xung quanh*/
+                border-radius: 5px; /*Thêm bo tròn cho khối chứa thông tin*/
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /*Thêm đổ bóng*/
+                text-align: left; /*Căn lề trái cho nội dung*/
             }
         </style>
     </head>
@@ -32,6 +44,5 @@
             <strong>Email:</strong>${requestScope.l.lmail}<br>
             <strong>Contact:</strong>${requestScope.l.lphone} 
         </div>
-
     </body>
 </html>
